@@ -1,0 +1,15 @@
+%let nac = 123456;  
+%let mac = 78910;  
+%macro yrmo(N);
+    DATA see.bl&bl_num.;   /* unified output dataset name */
+      SET
+   %do I= 102  %To &N;    
+            /* generating list of existing datasets */ 
+            %if %sysfunc(exist(abb.abb_&i)) %then %str( abb.abb_&i );
+    %end; 
+      ;  /* closing SET list of datasets */
+     
+             WHERE v1 = "&nac" OR v2 = "&mac"; 
+    RUN;       %end;
+%mend yrmo; 
+%yrmo(459); 
